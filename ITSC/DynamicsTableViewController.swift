@@ -58,9 +58,9 @@ class DynamicsTableViewController: UITableViewController {
                                     for i in lines{
                                         let contents=i.split(separator: ">")
                                         if contents[0] == "<span class=\"news_title\""{
-                                            let news=News()
-                                            news.setTitle(title: contents[2].replacingOccurrences(of: "</a", with: ""))
-                                            news.setUrl(url: "https://itsc.nju.edu.cn"+contents[1].split(separator: "\'")[1])
+                                            let news = News()
+                                                .setTitle(title: contents[2].replacingOccurrences(of: "</a", with: ""))
+                                                .setUrl(url: "https://itsc.nju.edu.cn"+contents[1].split(separator: "\'")[1])
                                             
                                             self.newsList[loadingPage].append(news)
                                         }
@@ -147,29 +147,6 @@ class DynamicsTableViewController: UITableViewController {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         (segue.destination as! InfoViewController).myURL = newsList[self.currentPage][tableView.indexPath(for: sender as! NewsTableViewCell)!.row].url
-    }
-
-    class News{
-        var title:String=""
-        var date:String=""
-        var url:String=""
-        init() {
-            
-        }
-        init(title:String,date:String,url:String) {
-            self.title = title
-            self.date = date;
-            self.url = url;
-        }
-        public func setTitle(title:String){
-            self.title = title;
-        }
-        public func setDate(date:String){
-            self.date = date;
-        }
-        public func setUrl(url:String){
-            self.url = url;
-        }
     }
     
 

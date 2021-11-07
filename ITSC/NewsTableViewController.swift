@@ -14,7 +14,7 @@ class NewsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        load_web()
+        loadWeb()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -24,7 +24,7 @@ class NewsTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    func load_web() {
+    func loadWeb() {
         let loadingPage=self.currentPage
         while self.newsList.count < loadingPage+1{
             self.newsList.append([])
@@ -57,14 +57,13 @@ class NewsTableViewController: UITableViewController {
                                     for i in lines{
                                         let contents=i.split(separator: ">")
                                         if contents[0] == "<span class=\"news_title\""{
-                                            let news=News()
-                                            news.Title=contents[2].replacingOccurrences(of: "</a", with: "")
-                                            news.URL="https://itsc.nju.edu.cn"+contents[1].split(separator: "\'")[1]
+                                            let news=News().setTitle(title: contents[2].replacingOccurrences(of: "</a", with: ""))
+                                                .setUrl(url: "https://itsc.nju.edu.cn"+contents[1].split(separator: "\'")[1])
                                             self.newsList[loadingPage].append(news)
                                         }
                                         else if contents[0] == "<span class=\"news_meta\""{
                                             if self.newsList[loadingPage].count>0{
-                                                self.newsList[loadingPage].last?.Date=contents[1].replacingOccurrences(of: "</span", with: "")
+                                                self.newsList[loadingPage].last?.date=contents[1].replacingOccurrences(of: "</span", with: "")
                                             }
                                         }else if contents[0]=="         <span class=\"pages\""{
                                             self.pageController.numberOfPages=((contents[4].replacingOccurrences(of: "</em", with: "")) as NSString).integerValue
@@ -94,8 +93,8 @@ class NewsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTableViewCell", for: indexPath) as! NewsTableViewCell
         if self.newsList[self.currentPage].count>=indexPath.row+1{
-            cell.date.text=self.newsList[self.currentPage][indexPath.row].Date
-            cell.title.text=self.newsList[self.currentPage][indexPath.row].Title
+            cell.date.text=self.newsList[self.currentPage][indexPath.row].date
+            cell.title.text=self.newsList[self.currentPage][indexPath.row].title
             cell.backgroundColor=UIColor(red: 0.2+0.03*CGFloat(indexPath.row%16)+0.02*CGFloat(self.currentPage%16), green: 0.2, blue: 0.6, alpha: 0.5)
         }
         // Configure the cell...
@@ -144,17 +143,13 @@ class NewsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-        (segue.destination as! InfoViewController).myURL = newsList[self.currentPage][tableView.indexPath(for: sender as! NewsTableViewCell)!.row].URL
+        (segue.destination as! InfoViewController).myURL = newsList[self.currentPage][tableView.indexPath(for: sender as! NewsTableViewCell)!.row].url
     }
 
-    class News{
-        var Title:String=""
-        var Date:String=""
-        var URL:String=""
-    }
+    
     
     @IBAction func page_change(_ sender: UIPageControl) {
-        self.currentPage=sender.currentPage
-        load_web()
+        self.currentPage = sender.currentPage
+        loadWeb()
     }
 }

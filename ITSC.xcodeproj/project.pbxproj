@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0406376B27376D2700B1987E /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0406376A27376D2700B1987E /* News.swift */; };
 		044CB20B2736062300A08AE6 /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044CB20A2736062300A08AE6 /* NewsTableViewController.swift */; };
 		044CB20E273609E000A08AE6 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044CB20D273609E000A08AE6 /* InfoViewController.swift */; };
 		04C0FF8F27365B95009D4A8B /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C0FF8E27365B95009D4A8B /* AboutUsViewController.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0406376A27376D2700B1987E /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		044CB20A2736062300A08AE6 /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
 		044CB20D273609E000A08AE6 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		04C0FF8E27365B95009D4A8B /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				04EB31B427375A24001047DD /* SecurityTableViewController.swift */,
 				044CB20D273609E000A08AE6 /* InfoViewController.swift */,
 				04C0FF8E27365B95009D4A8B /* AboutUsViewController.swift */,
+				0406376A27376D2700B1987E /* News.swift */,
 			);
 			path = ITSC;
 			sourceTree = "<group>";
@@ -168,6 +171,7 @@
 				044CB20B2736062300A08AE6 /* NewsTableViewController.swift in Sources */,
 				04C0FF8F27365B95009D4A8B /* AboutUsViewController.swift in Sources */,
 				044CB20E273609E000A08AE6 /* InfoViewController.swift in Sources */,
+				0406376B27376D2700B1987E /* News.swift in Sources */,
 				04EB31BB27375A25001047DD /* NoticeTableViewController.swift in Sources */,
 				04EB31C027375ABB001047DD /* DynamicsTableViewController.swift in Sources */,
 				34EBE00C271F08E2005CC9EB /* SceneDelegate.swift in Sources */,

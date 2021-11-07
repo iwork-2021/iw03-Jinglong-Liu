@@ -25,7 +25,7 @@ class NoticeTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     func load_web() {
-        let loadingPage=self.currentPage
+        let loadingPage = self.currentPage
         while self.newsList.count < loadingPage+1{
             self.newsList.append([])
         }
@@ -53,23 +53,24 @@ class NoticeTableViewController: UITableViewController {
                                         self.tableView.reloadData()
                                         return
                                     }
-                                    var lines=string.replacingOccurrences(of: "\t", with: "").split(separator: "\r\n")
-                                    for i in lines{
-                                        var contents=i.split(separator: ">")
+                                    let lines = string.replacingOccurrences(of: "\t", with: "").split(separator: "\r\n")
+                                    for line in lines{
+                                        let contents = line.split(separator: ">")
                                         if contents[0] == "<span class=\"news_title\""{
-                                            var news=News()
-                                            news.Title=contents[2].replacingOccurrences(of: "</a", with: "")
-                                            news.URL="https://itsc.nju.edu.cn"+contents[1].split(separator: "\'")[1]
+                                            let news = News()
+                                                .setTitle(title: contents[2].replacingOccurrences(of: "</a", with: ""))
+                                                .setUrl(url: "https://itsc.nju.edu.cn"+contents[1].split(separator: "\'")[1])
+                                            
                                             self.newsList[loadingPage].append(news)
                                         }
                                         else if contents[0] == "<span class=\"news_meta\""{
                                             if self.newsList[loadingPage].count>0{
-                                                self.newsList[loadingPage].last?.Date=contents[1].replacingOccurrences(of: "</span", with: "")
+                                                self.newsList[loadingPage].last?.date = contents[1].replacingOccurrences(of: "</span", with: "")
                                             }
-                                        }else if contents[0]=="         <span class=\"pages\""{
-                                            self.pageController.numberOfPages=((contents[4].replacingOccurrences(of: "</em", with: "")) as NSString).integerValue
+                                        }else if contents[0] == "         <span class=\"pages\""{
+                                            self.pageController.numberOfPages = ((contents[4].replacingOccurrences(of: "</em", with: "")) as NSString).integerValue
                                             if self.pageController.numberOfPages<2{
-                                                self.pageController.isHidden=true
+                                                self.pageController.isHidden = true
                                             }
                                         }
                                 }
@@ -78,7 +79,7 @@ class NoticeTableViewController: UITableViewController {
                 }
             })
         task.resume()
-        task.priority=1
+        task.priority = 1
         }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -94,8 +95,8 @@ class NoticeTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTableViewCell", for: indexPath) as! NewsTableViewCell
         if self.newsList[self.currentPage].count>=indexPath.row+1{
-            cell.date.text=self.newsList[self.currentPage][indexPath.row].Date
-            cell.title.text=self.newsList[self.currentPage][indexPath.row].Title
+            cell.date.text=self.newsList[self.currentPage][indexPath.row].date
+            cell.title.text=self.newsList[self.currentPage][indexPath.row].title
             cell.backgroundColor=UIColor(red:0.7 , green:0.1 , blue: 0.2+0.03*CGFloat(indexPath.row%16)+0.02*CGFloat(self.currentPage%16), alpha: 0.5)
         }
         // Configure the cell...
@@ -144,13 +145,7 @@ class NoticeTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-        (segue.destination as! InfoViewController).myURL = newsList[self.currentPage][tableView.indexPath(for: sender as! NewsTableViewCell)!.row].URL
-    }
-
-    class News{
-        var Title:String=""
-        var Date:String=""
-        var URL:String=""
+        (segue.destination as! InfoViewController).myURL = newsList[self.currentPage][tableView.indexPath(for: sender as! NewsTableViewCell)!.row].url
     }
     
 

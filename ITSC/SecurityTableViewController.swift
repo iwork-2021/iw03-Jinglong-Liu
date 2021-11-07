@@ -59,8 +59,8 @@ class SecurityTableViewController: UITableViewController {
                                         let contents=i.split(separator: ">")
                                         if contents[0] == "<span class=\"news_title\""{
                                             let news=News()
-                                            news.setTitle(title: contents[2].replacingOccurrences(of: "</a", with: ""))
-                                            news.setUrl(url: "https://itsc.nju.edu.cn"+contents[1].split(separator: "\'")[1])
+                                            .setTitle(title: contents[2].replacingOccurrences(of: "</a", with: ""))
+                                            .setUrl(url: "https://itsc.nju.edu.cn"+contents[1].split(separator: "\'")[1])
                                             self.newsList[loadingPage].append(news)
                                         }
                                         else if contents[0] == "<span class=\"news_meta\""{
@@ -68,10 +68,10 @@ class SecurityTableViewController: UITableViewController {
                                                 self.newsList[loadingPage].last?.setDate(date: contents[1].replacingOccurrences(of: "</span", with: ""))
                                                
                                             }
-                                        }else if contents[0]=="         <span class=\"pages\""{
-                                            self.pageController.numberOfPages=((contents[4].replacingOccurrences(of: "</em", with: "")) as NSString).integerValue
+                                        }else if contents[0] == "         <span class=\"pages\""{
+                                            self.pageController.numberOfPages = ((contents[4].replacingOccurrences(of: "</em", with: "")) as NSString).integerValue
                                             if self.pageController.numberOfPages<2{
-                                                self.pageController.isHidden=true
+                                                self.pageController.isHidden = true
                                             }
                                         }
                                 }
@@ -80,7 +80,6 @@ class SecurityTableViewController: UITableViewController {
                 }
             })
         task.resume()
-        task.priority=1
         }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -96,9 +95,9 @@ class SecurityTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTableViewCell", for: indexPath) as! NewsTableViewCell
         if self.newsList[self.currentPage].count>=indexPath.row+1{
-            cell.date.text=self.newsList[self.currentPage][indexPath.row].date
-            cell.title.text=self.newsList[self.currentPage][indexPath.row].title
-            cell.backgroundColor=UIColor(red:0.4 , green: 0.2+0.03*CGFloat(indexPath.row%16)+0.02*CGFloat(self.currentPage%16), blue: 0.6, alpha: 0.5)
+            cell.date.text = self.newsList[self.currentPage][indexPath.row].date
+            cell.title.text = self.newsList[self.currentPage][indexPath.row].title
+            cell.backgroundColor = UIColor(red:0.4 , green: 0.2+0.03*CGFloat(indexPath.row%16)+0.02*CGFloat(self.currentPage%16), blue: 0.6, alpha: 0.5)
         }
         // Configure the cell...
 
@@ -149,32 +148,10 @@ class SecurityTableViewController: UITableViewController {
         (segue.destination as! InfoViewController).myURL = newsList[self.currentPage][tableView.indexPath(for: sender as! NewsTableViewCell)!.row].url
     }
 
-    class News{
-        var title:String=""
-        var date:String=""
-        var url:String=""
-        init() {
-            
-        }
-        init(title:String,date:String,url:String) {
-            self.title = title
-            self.date = date;
-            self.url = url;
-        }
-        public func setTitle(title:String){
-            self.title = title;
-        }
-        public func setDate(date:String){
-            self.date = date;
-        }
-        public func setUrl(url:String){
-            self.url = url;
-        }
-    }
     
 
     @IBAction func change_page(_ sender: Any) {
-        self.currentPage=(sender as! UIPageControl).currentPage
+        self.currentPage = (sender as! UIPageControl).currentPage
         self.loadWeb()
     }
 }

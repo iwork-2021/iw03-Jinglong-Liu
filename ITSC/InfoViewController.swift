@@ -17,8 +17,8 @@ class InfoViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        readFile()
-        loadWeb()
+        self.readFile()
+        self.loadWeb()
         // Do any additional setup after loading the view.
     }
     
@@ -66,7 +66,6 @@ class InfoViewController: UIViewController {
                 }
             })
         task.resume()
-        task.priority=1
         }
     /*
     // MARK: - Navigation
