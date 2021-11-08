@@ -42,21 +42,9 @@ class InfoViewController: UIViewController {
                             let data = data,
                             let string = String(data: data, encoding: .utf8) {
                                 DispatchQueue.main.async {
-                                    var content="<html>\r\n<meta charset=\"utf-8\">\r\n<base href=\"https://itsc.nju.edu.cn\"/>\r\n"
-                                    let lines=string.split(separator: "\r\n")
-                                    var start:Bool=false
-                                    for i in lines{
-                                        if i == "<!--Start||content-->"{
-                                            start=true
-                                        }
-                                        else if i == "<!--End||content-->"{
-                                            start=false
-                                        }
-                                        if start{
-                                            content=content+i+"\r\n"
-                                        }
-                                    }
-                                    content+="<html/>\r\n"
+                                    var content = "<html><meta charset=\"utf-8\">\r\n<base href=\"https://itsc.nju.edu.cn\"/>\r\n"
+                                    content += self.htmlBody(string: string)
+                                    content += "<html/>"
                                     
 
                                     self.webView.loadHTMLString(content, baseURL: nil)
@@ -97,5 +85,21 @@ class InfoViewController: UIViewController {
             }
         }
     }
-    
+    private func htmlBody(string:String)->String{
+        let lines=string.split(separator: "\r\n")
+        var body:String = ""
+        var start:Bool=false
+        for i in lines{
+            if i == "<!--Start||content-->"{
+                start=true
+            }
+            else if i == "<!--End||content-->"{
+                start=false
+            }
+            if start{
+                body = body + i + "\r\n"
+            }
+        }
+        return body
+    }
 }

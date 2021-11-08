@@ -19,7 +19,7 @@ class AboutUsViewController: UIViewController {
     
     
         private func loadWeb(){
-            print("about")
+            //print("about")
             let url = URL(string: "https://itsc.nju.edu.cn/xwdt/list.htm")!
             let task = URLSession.shared.dataTask(with: url, completionHandler: {
                 data, response, error in
@@ -37,33 +37,9 @@ class AboutUsViewController: UIViewController {
                             let data = data,
                             let string = String(data: data, encoding: .utf8) {
                                 DispatchQueue.main.async {
-                                    let lines = string.split(separator: "\r\n")
-                                    var flag = false
-                                    var timetorecord = false
-                                    var content = "<html><body>"
-                                    for line in lines{
-                                        let symbol = line.split(separator: "\t")
-                                        if line == "<!--Start||footer-->"{
-                                            flag = true
-                                        }
-                                        else if line == "<!--End||footer-->"{
-                                            flag = false
-                                        }
-                                        if flag{
-                                           
-                                            
-                                            if !symbol.isEmpty && symbol[0] == "<div class=\"foot-center\">"{
-                                                timetorecord = true
-                                            }
-                                            if !symbol.isEmpty && symbol[0] == "<div class=\"foot-right\" >"{
-                                                timetorecord = false
-                                            }
-                                            if timetorecord && !symbol.isEmpty && symbol[0] != "<div class=\"foot-center\">"{
-                                                content += line
-                                            }
-                                        }
-                                    }
-                                    content += "</body></html>"
+                                    
+                                    
+                                    let content:String = "<html>" + self.header + "<body>" + self.htmlBody(string: string) + "</body></html>"
                         self.webView.loadHTMLString(content, baseURL: nil)
                 }
                     
@@ -72,7 +48,46 @@ class AboutUsViewController: UIViewController {
         })
             task.resume()
     }
-
+    let header = """
+            <head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+                <style>
+                    body {
+                        font-family: "Avenir";
+                        font-size: 20px;
+                    }
+                </style>
+            </head>
+            """
+    func htmlBody(string:String)->String{
+        let lines = string.split(separator: "\r\n")
+        var flag = false
+        var timetorecord = false
+        var content = ""
+        for line in lines{
+            let symbol = line.split(separator: "\t")
+            if line == "<!--Start||footer-->"{
+                flag = true
+            }
+            else if line == "<!--End||footer-->"{
+                flag = false
+            }
+            if flag{
+               
+                
+                if !symbol.isEmpty && symbol[0] == "<div class=\"foot-center\">"{
+                    timetorecord = true
+                }
+                if !symbol.isEmpty && symbol[0] == "<div class=\"foot-right\" >"{
+                    timetorecord = false
+                }
+                if timetorecord && !symbol.isEmpty && symbol[0] != "<div class=\"foot-center\">"{
+                    content += line
+                }
+            }
+        }
+        return content
+    }
     /*
     // MARK: - Navigation
 
