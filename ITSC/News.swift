@@ -30,3 +30,6 @@ class News: NSObject{
         return self
     }
 }
+protocol webLoader {
+    func loadWeb()
+}

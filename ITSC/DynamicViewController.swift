@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DynamicsTableViewController: UITableViewController {
+class DynamicViewController: UITableViewController {
     var newsList:Array<Array<News>>=[]
     var currentPage:Int=0
     @IBOutlet weak var pageController: UIPageControl!
@@ -15,7 +15,6 @@ class DynamicsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadWeb()
-        print(0)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -54,27 +53,7 @@ class DynamicsTableViewController: UITableViewController {
                                         self.tableView.reloadData()
                                         return
                                     }
-                                    let lines=string.replacingOccurrences(of: "\t", with: "").split(separator: "\r\n")
-                                    for i in lines{
-                                        let contents=i.split(separator: ">")
-                                        if contents[0] == "<span class=\"news_title\""{
-                                            let news = News()
-                                                .setTitle(title: contents[2].replacingOccurrences(of: "</a", with: ""))
-                                                .setUrl(url: "https://itsc.nju.edu.cn"+contents[1].split(separator: "\'")[1])
-                                            
-                                            self.newsList[loadingPage].append(news)
-                                        }
-                                        else if contents[0] == "<span class=\"news_meta\""{
-                                            if self.newsList[loadingPage].count>0{
-                                                self.newsList[loadingPage].last?.setDate(date: contents[1].replacingOccurrences(of: "</span", with: ""))
-                                            }
-                                        }else if contents[0]=="         <span class=\"pages\""{
-                                            self.pageController.numberOfPages=((contents[4].replacingOccurrences(of: "</em", with: "")) as NSString).integerValue
-                                            if self.pageController.numberOfPages<2{
-                                                self.pageController.isHidden=true
-                                            }
-                                        }
-                                }
+                                    self.parseHtml(string: string)
                                     self.tableView.reloadData()
                             }
                 }
@@ -98,7 +77,7 @@ class DynamicsTableViewController: UITableViewController {
         if self.newsList[self.currentPage].count>=indexPath.row+1{
             cell.date.text=self.newsList[self.currentPage][indexPath.row].date
             cell.title.text=self.newsList[self.currentPage][indexPath.row].title
-            cell.backgroundColor=UIColor(red:0.3 , green:0.2 , blue: 0.5+0.03*CGFloat(indexPath.row%16)+0.02*CGFloat(self.currentPage%16), alpha: 0.5)
+            //cell.backgroundColor=UIColor(red:0.3 , green:0.2 , blue: 0.5+0.03*CGFloat(indexPath.row%16)+0.02*CGFloat(self.currentPage%16), alpha: 0.5)
         }
         // Configure the cell...
 
@@ -146,7 +125,7 @@ class DynamicsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-        (segue.destination as! InfoViewController).myURL = newsList[self.currentPage][tableView.indexPath(for: sender as! NewsTableViewCell)!.row].url
+        (segue.destination as! PageViewController).myURL = newsList[self.currentPage][tableView.indexPath(for: sender as! NewsTableViewCell)!.row].url
     }
     
 
@@ -155,7 +134,27 @@ class DynamicsTableViewController: UITableViewController {
         self.loadWeb()
     }
     
-    private func parsePage(){
-        
+    private func parseHtml(string:String){
+        let lines=string.replacingOccurrences(of: "\t", with: "").split(separator: "\r\n")
+        for i in lines{
+            let contents=i.split(separator: ">")
+            if contents[0] == "<span class=\"news_title\""{
+                let news = News()
+                    .setTitle(title: contents[2].replacingOccurrences(of: "</a", with: ""))
+                    .setUrl(url: "https://itsc.nju.edu.cn"+contents[1].split(separator: "\'")[1])
+                
+                self.newsList[self.currentPage].append(news)
+            }
+            else if contents[0] == "<span class=\"news_meta\""{
+                if self.newsList[self.currentPage].count>0{
+                    self.newsList[self.currentPage].last?.setDate(date: contents[1].replacingOccurrences(of: "</span", with: ""))
+                }
+            }else if contents[0]=="         <span class=\"pages\""{
+                self.pageController.numberOfPages=((contents[4].replacingOccurrences(of: "</em", with: "")) as NSString).integerValue
+                if self.pageController.numberOfPages<2{
+                    self.pageController.isHidden=true
+                }
+            }
+    }
     }
 }

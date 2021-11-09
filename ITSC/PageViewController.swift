@@ -1,30 +1,29 @@
 //
-//  InfoViewController.swift
+//  PageViewController.swift
 //  ITSC
 //
 //  Created by mac on 2021/11/6.
 //
-
+/*
+    concrete page view
+ */
 import UIKit
 import WebKit
 
-let maxMemory=10
-
-class InfoViewController: UIViewController {
+class PageViewController: UIViewController {
     @IBOutlet weak var webView: WKWebView!
-    var myURL:String="www.baidu.com"
-    var contentDict:[String:String]=[:]
+    var myURL:String=""
+    var cache:[String:String]=[:]
     override func viewDidLoad() {
-        
-        super.viewDidLoad()
-        self.readFile()
         self.loadWeb()
+        super.viewDidLoad()
+        
         // Do any additional setup after loading the view.
     }
     
     func loadWeb() {
-        if self.contentDict[myURL] != nil{
-            self.webView.loadHTMLString(self.contentDict[myURL]!, baseURL: nil)
+        if self.cache[myURL] != nil{
+            self.webView.loadHTMLString(self.cache[myURL]!, baseURL: nil)
             return
         }
         let task = URLSession.shared.dataTask(with: URL(string: self.myURL)!, completionHandler: {
@@ -42,18 +41,19 @@ class InfoViewController: UIViewController {
                             let data = data,
                             let string = String(data: data, encoding: .utf8) {
                                 DispatchQueue.main.async {
-                                    var content = "<html><meta charset=\"utf-8\">\r\n<base href=\"https://itsc.nju.edu.cn\"/>\r\n"
+                                    var content = "<html>"
+                                    content += self.header
                                     content += self.htmlBody(string: string)
                                     content += "<html/>"
-                                    
+                                    print(content)
 
                                     self.webView.loadHTMLString(content, baseURL: nil)
-                                    self.contentDict[self.myURL]=content
-                                    self.saveFile()
+                                    self.cache[self.myURL]=content
                             }
                 }
             })
         task.resume()
+        task.priority=1
         }
     /*
     // MARK: - Navigation
@@ -65,41 +65,32 @@ class InfoViewController: UIViewController {
     }
     */
 
-    func saveFile(){
-        let path:URL = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first)!.appendingPathComponent("webSave.json")
-        do{
-            let data = try JSONEncoder().encode(contentDict)
-            try data.write(to: path, options: .atomic)
-        }catch{
-            print("Can not save: \(error.localizedDescription)")
-        }
-    }
-    
-    func readFile(){
-        let path:URL = (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first)!.appendingPathComponent("webSave.json")
-        if let data = try? Data(contentsOf: path){
-            do{
-                contentDict=try JSONDecoder().decode([String:String].self, from: data)
-            }catch{
-                print("Error decoding list:\(error.localizedDescription)")
-            }
-        }
-    }
     private func htmlBody(string:String)->String{
         let lines=string.split(separator: "\r\n")
         var body:String = ""
         var start:Bool=false
-        for i in lines{
-            if i == "<!--Start||content-->"{
+        for line in lines{
+            if line == "<!--Start||content-->"{
                 start=true
             }
-            else if i == "<!--End||content-->"{
+            else if line == "<!--End||content-->"{
                 start=false
             }
             if start{
-                body = body + i + "\r\n"
+                body = body + line + "\r\n"
             }
         }
         return body
     }
+    let header = """
+            <head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+                <style>
+                    body {
+                        font-family: "Avenir";
+                        font-size: 14px;
+                    }
+                </style>
+            </head>
+            """
 }

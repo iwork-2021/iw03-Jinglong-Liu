@@ -9,13 +9,12 @@
 /* Begin PBXBuildFile section */
 		0406376B27376D2700B1987E /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0406376A27376D2700B1987E /* News.swift */; };
 		044CB20B2736062300A08AE6 /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044CB20A2736062300A08AE6 /* NewsTableViewController.swift */; };
-		044CB20E273609E000A08AE6 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044CB20D273609E000A08AE6 /* InfoViewController.swift */; };
 		04C0FF8F27365B95009D4A8B /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C0FF8E27365B95009D4A8B /* AboutUsViewController.swift */; };
-		04EB31B827375A25001047DD /* Header.png in Resources */ = {isa = PBXBuildFile; fileRef = 04EB31B327375A24001047DD /* Header.png */; };
+		04E25009273A70E900C7F5BE /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E25008273A70E900C7F5BE /* PageViewController.swift */; };
+		04E2500D273A7D9D00C7F5BE /* DynamicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E2500C273A7D9D00C7F5BE /* DynamicViewController.swift */; };
 		04EB31B927375A25001047DD /* SecurityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB31B427375A24001047DD /* SecurityTableViewController.swift */; };
 		04EB31BA27375A25001047DD /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB31B527375A24001047DD /* NewsTableViewCell.swift */; };
 		04EB31BB27375A25001047DD /* NoticeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB31B627375A25001047DD /* NoticeTableViewController.swift */; };
-		04EB31C027375ABB001047DD /* DynamicsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EB31BF27375ABB001047DD /* DynamicsTableViewController.swift */; };
 		34EBE00A271F08E2005CC9EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EBE009271F08E2005CC9EB /* AppDelegate.swift */; };
 		34EBE00C271F08E2005CC9EB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EBE00B271F08E2005CC9EB /* SceneDelegate.swift */; };
 		34EBE00E271F08E2005CC9EB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EBE00D271F08E2005CC9EB /* ViewController.swift */; };
@@ -27,13 +26,12 @@
 /* Begin PBXFileReference section */
 		0406376A27376D2700B1987E /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		044CB20A2736062300A08AE6 /* NewsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
-		044CB20D273609E000A08AE6 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		04C0FF8E27365B95009D4A8B /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
-		04EB31B327375A24001047DD /* Header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Header.png; sourceTree = "<group>"; };
+		04E25008273A70E900C7F5BE /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PageViewController.swift; path = "/Users/mac/Desktop/workspace/ios/iw03-Jinglong-Liu/ITSC/PageViewController.swift"; sourceTree = "<absolute>"; };
+		04E2500C273A7D9D00C7F5BE /* DynamicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicViewController.swift; sourceTree = "<group>"; };
 		04EB31B427375A24001047DD /* SecurityTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityTableViewController.swift; sourceTree = "<group>"; };
 		04EB31B527375A24001047DD /* NewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		04EB31B627375A25001047DD /* NoticeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoticeTableViewController.swift; sourceTree = "<group>"; };
-		04EB31BF27375ABB001047DD /* DynamicsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicsTableViewController.swift; sourceTree = "<group>"; };
 		34EBE006271F08E2005CC9EB /* ITSC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ITSC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34EBE009271F08E2005CC9EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		34EBE00B271F08E2005CC9EB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,7 +72,8 @@
 		34EBE008271F08E2005CC9EB /* ITSC */ = {
 			isa = PBXGroup;
 			children = (
-				04EB31BF27375ABB001047DD /* DynamicsTableViewController.swift */,
+				04E2500C273A7D9D00C7F5BE /* DynamicViewController.swift */,
+				04E25008273A70E900C7F5BE /* PageViewController.swift */,
 				34EBE009271F08E2005CC9EB /* AppDelegate.swift */,
 				34EBE00B271F08E2005CC9EB /* SceneDelegate.swift */,
 				34EBE00D271F08E2005CC9EB /* ViewController.swift */,
@@ -83,11 +82,9 @@
 				34EBE017271F08E3005CC9EB /* Info.plist */,
 				34EBE01D271F0910005CC9EB /* LaunchScreen.storyboard */,
 				044CB20A2736062300A08AE6 /* NewsTableViewController.swift */,
-				04EB31B327375A24001047DD /* Header.png */,
 				04EB31B527375A24001047DD /* NewsTableViewCell.swift */,
 				04EB31B627375A25001047DD /* NoticeTableViewController.swift */,
 				04EB31B427375A24001047DD /* SecurityTableViewController.swift */,
-				044CB20D273609E000A08AE6 /* InfoViewController.swift */,
 				04C0FF8E27365B95009D4A8B /* AboutUsViewController.swift */,
 				0406376A27376D2700B1987E /* News.swift */,
 			);
@@ -153,7 +150,6 @@
 			files = (
 				34EBE01E271F0910005CC9EB /* LaunchScreen.storyboard in Resources */,
 				34EBE013271F08E3005CC9EB /* Assets.xcassets in Resources */,
-				04EB31B827375A25001047DD /* Header.png in Resources */,
 				34EBE011271F08E2005CC9EB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -167,13 +163,13 @@
 			files = (
 				34EBE00E271F08E2005CC9EB /* ViewController.swift in Sources */,
 				34EBE00A271F08E2005CC9EB /* AppDelegate.swift in Sources */,
+				04E25009273A70E900C7F5BE /* PageViewController.swift in Sources */,
 				04EB31BA27375A25001047DD /* NewsTableViewCell.swift in Sources */,
+				04E2500D273A7D9D00C7F5BE /* DynamicViewController.swift in Sources */,
 				044CB20B2736062300A08AE6 /* NewsTableViewController.swift in Sources */,
 				04C0FF8F27365B95009D4A8B /* AboutUsViewController.swift in Sources */,
-				044CB20E273609E000A08AE6 /* InfoViewController.swift in Sources */,
 				0406376B27376D2700B1987E /* News.swift in Sources */,
 				04EB31BB27375A25001047DD /* NoticeTableViewController.swift in Sources */,
-				04EB31C027375ABB001047DD /* DynamicsTableViewController.swift in Sources */,
 				34EBE00C271F08E2005CC9EB /* SceneDelegate.swift in Sources */,
 				04EB31B927375A25001047DD /* SecurityTableViewController.swift in Sources */,
 			);

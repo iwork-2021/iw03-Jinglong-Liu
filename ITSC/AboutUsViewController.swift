@@ -47,6 +47,7 @@ class AboutUsViewController: UIViewController {
         
         })
             task.resume()
+            task.priority=1
     }
     let header = """
             <head>
@@ -54,7 +55,7 @@ class AboutUsViewController: UIViewController {
                 <style>
                     body {
                         font-family: "Avenir";
-                        font-size: 20px;
+                        font-size: 16px;
                     }
                 </style>
             </head>
@@ -66,15 +67,13 @@ class AboutUsViewController: UIViewController {
         var content = ""
         for line in lines{
             let symbol = line.split(separator: "\t")
-            if line == "<!--Start||footer-->"{
+            if line == "<!--End||footer-->"{
+                break;
+            }
+            else if line == "<!--Start||footer-->"{
                 flag = true
             }
-            else if line == "<!--End||footer-->"{
-                flag = false
-            }
             if flag{
-               
-                
                 if !symbol.isEmpty && symbol[0] == "<div class=\"foot-center\">"{
                     timetorecord = true
                 }
