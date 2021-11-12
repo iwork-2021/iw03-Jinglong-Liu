@@ -41,7 +41,7 @@ class PageViewController: UIViewController {
                             let data = data,
                             let string = String(data: data, encoding: .utf8) {
                                 DispatchQueue.main.async {
-                                    var content = "<html>"
+                                    var content = "<html>\r\n<meta charset=\"utf-8\">\r\n<base href=\"https://itsc.nju.edu.cn\"/>\r\n"
                                     content += self.header
                                     content += self.htmlBody(string: string)
                                     content += "<html/>"
@@ -89,6 +89,9 @@ class PageViewController: UIViewController {
                     body {
                         font-family: "Avenir";
                         font-size: 14px;
+                    }
+                    img{
+                        max-width:360px !important;
                     }
                 </style>
             </head>
